@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MAMA BORO SEGO</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5f1;
+}
+
+.hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #ffffff 0%,
+            #f7f5f1 65%,
+            #efede8 100%
+        );
+}
+
+
+/* =========================================================
+   COLORFUL BACKGROUND SHAPES
+   ========================================================= */
+
+.color-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(3px);
+    opacity: 0.32;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.shape1 {
+    width: 280px;
+    height: 150px;
+    background: #ff6fae;
+    left: 8%;
+    top: 25%;
+    transform: rotate(-18deg);
+}
+
+.shape2 {
+    width: 260px;
+    height: 140px;
+    background: #7c6cff;
+    right: 10%;
+    top: 20%;
+    transform: rotate(22deg);
+}
+
+.shape3 {
+    width: 300px;
+    height: 150px;
+    background: #00d9c0;
+    left: 35%;
+    bottom: 10%;
+    transform: rotate(-12deg);
+}
+
+.shape4 {
+    width: 220px;
+    height: 120px;
+    background: #ffd83d;
+    right: 25%;
+    bottom: 22%;
+    transform: rotate(25deg);
+}
+
+.shape5 {
+    width: 200px;
+    height: 100px;
+    background: #ff8552;
+    left: 25%;
+    top: 12%;
+    transform: rotate(15deg);
+}
+
+
+/* =========================================================
+   DOODLE LAYER
+   ========================================================= */
+
+.doodles {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   DOODLES
+   ========================================================= */
+
+.doodle {
+    position: absolute;
+
+    width: var(--size);
+    height: var(--size);
+
+    object-fit: contain;
+
+    opacity: 0.48;
+
+    filter:
+        grayscale(1)
+        contrast(1.35);
+
+    animation:
+        float var(--speed) ease-in-out infinite;
+
+    animation-delay: var(--delay);
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes float {
+
+    0% {
+        transform:
+            translate(0, 0)
+            rotate(var(--rotation));
+    }
+
+    25% {
+        transform:
+            translate(
+                var(--move-x, 8px),
+                var(--move-y, -10px)
+            )
+            rotate(
+                calc(var(--rotation) + 5deg)
+            );
+    }
+
+    50% {
+        transform:
+            translate(
+                calc(var(--move-x, 8px) * -1),
+                var(--move-y, -18px)
+            )
+            rotate(
+                calc(var(--rotation) - 6deg)
+            );
+    }
+
+    75% {
+        transform:
+            translate(
+                var(--move-x, 6px),
+                var(--move-y, -8px)
+            )
+            rotate(
+                calc(var(--rotation) + 3deg)
+            );
+    }
+
+    100% {
+        transform:
+            translate(0, 0)
+            rotate(var(--rotation));
+    }
+}
+
+
+/* =========================================================
+   CENTER CONTENT
+   ========================================================= */
+
+.content {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 92%;
+
+    text-align: center;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.title {
+
+    font-family:
+        Impact,
+        Haettenschweiler,
+        "Arial Black",
+        Arial,
+        sans-serif;
+
+    font-size:
+        clamp(55px, 9vw, 145px);
+
+    font-weight: 900;
+
+    line-height: 0.9;
+
+    letter-spacing: -5px;
+
+    color: #050505;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        2px 2px 0 rgba(255,255,255,0.5);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+.subtitle {
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    letter-spacing: 5px;
+
+    font-weight: 700;
+
+    color: #111;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+
+    position: absolute;
+
+    left: 35px;
+    right: 35px;
+    bottom: 28px;
+
+    z-index: 20;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    color: #111;
+}
+
+
+/* =========================================================
+   LOCATION
+   ========================================================= */
+
+.location {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+/* =========================================================
+   PIN
+   ========================================================= */
+
+.pin {
+
+    width: 14px;
+    height: 18px;
+
+    border: 2px solid #111;
+
+    border-radius:
+        50% 50% 50% 0;
+
+    transform: rotate(-45deg);
+
+    position: relative;
+}
+
+.pin::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    background: #111;
+
+    border-radius: 50%;
+
+    top: 5px;
+    left: 3px;
+}
+
+
+/* =========================================================
+   AUTHOR
+   ========================================================= */
+
+.author {
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .title {
+
+        font-size: 16vw;
+
+        letter-spacing: -3px;
+
+        white-space: normal;
+    }
+
+    .subtitle {
+
+        font-size: 9px;
+
+        letter-spacing: 3px;
+    }
+
+    .footer {
+
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+
+        font-size: 12px;
+    }
+
+    .doodle {
+        opacity: 0.40;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .doodle {
+        animation: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="hero">
+
+
+    <!-- =====================================================
+         COLOR
+         ===================================================== -->
+
+    <div class="color-shape shape1"></div>
+    <div class="color-shape shape2"></div>
+    <div class="color-shape shape3"></div>
+    <div class="color-shape shape4"></div>
+    <div class="color-shape shape5"></div>
+
+
+    <!-- =====================================================
+         DOODLES
+         ===================================================== -->
+
+    <div class="doodles">
+
+
+        <!-- =================================================
+             TOP ROW
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F33F.svg"
+        style="--size:55px;--speed:8s;--delay:-2s;--rotation:-18deg;left:1%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:45px;--speed:10s;--delay:-4s;--rotation:25deg;left:7%;top:11%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37A.svg"
+        style="--size:55px;--speed:9s;--delay:-5s;--rotation:-12deg;left:14%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:50px;--speed:11s;--delay:-3s;--rotation:20deg;left:21%;top:10%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:45px;--speed:7s;--delay:-1s;--rotation:-25deg;left:28%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37E.svg"
+        style="--size:55px;--speed:12s;--delay:-6s;--rotation:15deg;left:35%;top:11%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F943.svg"
+        style="--size:50px;--speed:9s;--delay:-2s;--rotation:-18deg;left:43%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F525.svg"
+        style="--size:55px;--speed:10s;--delay:-7s;--rotation:10deg;left:51%;top:10%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:45px;--speed:9s;--delay:-4s;--rotation:-15deg;left:59%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B5.svg"
+        style="--size:50px;--speed:8s;--delay:-2s;--rotation:22deg;left:67%;top:11%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F480.svg"
+        style="--size:50px;--speed:10s;--delay:-6s;--rotation:-18deg;left:75%;top:3%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B8.svg"
+        style="--size:55px;--speed:11s;--delay:-3s;--rotation:18deg;left:83%;top:11%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:45px;--speed:9s;--delay:-5s;--rotation:-25deg;left:91%;top:3%;">
+
+
+        <!-- =================================================
+             UPPER MIDDLE
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B5.svg"
+        style="--size:42px;--speed:8s;--delay:-3s;--rotation:20deg;left:5%;top:19%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F48E.svg"
+        style="--size:40px;--speed:10s;--delay:-6s;--rotation:-15deg;left:15%;top:23%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/26A1.svg"
+        style="--size:45px;--speed:9s;--delay:-2s;--rotation:25deg;left:24%;top:20%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F33F.svg"
+        style="--size:45px;--speed:11s;--delay:-4s;--rotation:-12deg;left:34%;top:24%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:40px;--speed:8s;--delay:-1s;--rotation:15deg;left:44%;top:19%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F525.svg"
+        style="--size:45px;--speed:10s;--delay:-5s;--rotation:-20deg;left:54%;top:23%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:45px;--speed:9s;--delay:-7s;--rotation:18deg;left:64%;top:20%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F943.svg"
+        style="--size:42px;--speed:11s;--delay:-3s;--rotation:-18deg;left:73%;top:24%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37B.svg"
+        style="--size:48px;--speed:8s;--delay:-4s;--rotation:15deg;left:82%;top:19%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B0.svg"
+        style="--size:45px;--speed:10s;--delay:-2s;--rotation:-20deg;left:91%;top:24%;">
+
+
+        <!-- =================================================
+             LEFT SIDE
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F480.svg"
+        style="--size:55px;--speed:8s;--delay:-3s;--rotation:-20deg;left:1%;top:31%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3AE.svg"
+        style="--size:60px;--speed:11s;--delay:-5s;--rotation:18deg;left:8%;top:38%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B8.svg"
+        style="--size:55px;--speed:9s;--delay:-1s;--rotation:-15deg;left:1%;top:48%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B5.svg"
+        style="--size:50px;--speed:12s;--delay:-4s;--rotation:22deg;left:8%;top:57%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B1.svg"
+        style="--size:55px;--speed:8s;--delay:-6s;--rotation:-12deg;left:2%;top:67%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F48E.svg"
+        style="--size:45px;--speed:10s;--delay:-2s;--rotation:30deg;left:9%;top:78%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B5.svg"
+        style="--size:45px;--speed:8s;--delay:-3s;--rotation:-20deg;left:2%;top:89%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:42px;--speed:10s;--delay:-5s;--rotation:25deg;left:12%;top:94%;">
+
+
+        <!-- =================================================
+             RIGHT SIDE
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F33F.svg"
+        style="--size:55px;--speed:10s;--delay:-6s;--rotation:25deg;left:94%;top:31%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:45px;--speed:8s;--delay:-2s;--rotation:-20deg;left:86%;top:38%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37B.svg"
+        style="--size:55px;--speed:11s;--delay:-5s;--rotation:15deg;left:94%;top:48%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:50px;--speed:9s;--delay:-3s;--rotation:-18deg;left:86%;top:57%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B0.svg"
+        style="--size:50px;--speed:12s;--delay:-7s;--rotation:20deg;left:94%;top:67%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/26A1.svg"
+        style="--size:50px;--speed:8s;--delay:-1s;--rotation:-25deg;left:86%;top:78%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B6.svg"
+        style="--size:45px;--speed:10s;--delay:-4s;--rotation:15deg;left:94%;top:88%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F480.svg"
+        style="--size:50px;--speed:9s;--delay:-6s;--rotation:-15deg;left:82%;top:70%;">
+
+
+        <!-- =================================================
+             CENTER AREA
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:42px;--speed:9s;--delay:-5s;--rotation:10deg;left:17%;top:29%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B6.svg"
+        style="--size:40px;--speed:12s;--delay:-2s;--rotation:-20deg;left:28%;top:33%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2764-FE0F.svg"
+        style="--size:45px;--speed:10s;--delay:-6s;--rotation:18deg;left:39%;top:29%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:42px;--speed:8s;--delay:-3s;--rotation:-15deg;left:51%;top:33%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F525.svg"
+        style="--size:45px;--speed:11s;--delay:-5s;--rotation:20deg;left:63%;top:29%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B5.svg"
+        style="--size:40px;--speed:9s;--delay:-2s;--rotation:-10deg;left:75%;top:34%;">
+
+
+        <!-- =================================================
+             LOWER MIDDLE
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F480.svg"
+        style="--size:45px;--speed:10s;--delay:-1s;--rotation:-18deg;left:17%;top:65%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37A.svg"
+        style="--size:50px;--speed:9s;--delay:-4s;--rotation:15deg;left:27%;top:75%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F943.svg"
+        style="--size:45px;--speed:12s;--delay:-7s;--rotation:-25deg;left:38%;top:68%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3AE.svg"
+        style="--size:55px;--speed:8s;--delay:-2s;--rotation:20deg;left:50%;top:77%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F48E.svg"
+        style="--size:45px;--speed:10s;--delay:-5s;--rotation:-15deg;left:63%;top:69%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B8.svg"
+        style="--size:50px;--speed:11s;--delay:-3s;--rotation:12deg;left:75%;top:80%;">
+
+
+        <!-- =================================================
+             EXTRA LOWER ROW
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:40px;--speed:8s;--delay:-6s;--rotation:-20deg;left:20%;top:86%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:40px;--speed:10s;--delay:-1s;--rotation:25deg;left:30%;top:91%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:38px;--speed:9s;--delay:-4s;--rotation:-15deg;left:39%;top:84%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:40px;--speed:8s;--delay:-5s;--rotation:20deg;left:49%;top:91%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B0.svg"
+        style="--size:40px;--speed:10s;--delay:-2s;--rotation:-18deg;left:60%;top:86%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F943.svg"
+        style="--size:40px;--speed:11s;--delay:-6s;--rotation:15deg;left:70%;top:92%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37E.svg"
+        style="--size:45px;--speed:9s;--delay:-3s;--rotation:-12deg;left:80%;top:84%;">
+
+
+        <!-- =================================================
+             SMALL FILLER DOODLES
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:32px;--speed:7s;--delay:-2s;--rotation:25deg;left:12%;top:29%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F33F.svg"
+        style="--size:35px;--speed:9s;--delay:-5s;--rotation:-15deg;left:23%;top:39%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:32px;--speed:8s;--delay:-3s;--rotation:20deg;left:33%;top:43%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F525.svg"
+        style="--size:35px;--speed:10s;--delay:-6s;--rotation:-20deg;left:45%;top:39%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F4B0.svg"
+        style="--size:32px;--speed:7s;--delay:-1s;--rotation:18deg;left:57%;top:43%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F480.svg"
+        style="--size:36px;--speed:11s;--delay:-4s;--rotation:-25deg;left:69%;top:39%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F37A.svg"
+        style="--size:35px;--speed:9s;--delay:-7s;--rotation:15deg;left:79%;top:43%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:32px;--speed:8s;--delay:-2s;--rotation:-20deg;left:88%;top:39%;">
+
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:34px;--speed:10s;--delay:-5s;--rotation:18deg;left:13%;top:52%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/26A1.svg"
+        style="--size:36px;--speed:8s;--delay:-3s;--rotation:-15deg;left:24%;top:56%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B5.svg"
+        style="--size:32px;--speed:9s;--delay:-6s;--rotation:20deg;left:36%;top:52%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F48E.svg"
+        style="--size:34px;--speed:11s;--delay:-2s;--rotation:-20deg;left:48%;top:56%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B2.svg"
+        style="--size:32px;--speed:8s;--delay:-5s;--rotation:15deg;left:60%;top:52%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F525.svg"
+        style="--size:36px;--speed:10s;--delay:-1s;--rotation:-18deg;left:72%;top:56%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F943.svg"
+        style="--size:34px;--speed:9s;--delay:-4s;--rotation:20deg;left:82%;top:52%;">
+
+
+        <!-- =================================================
+             VERY SMALL FILLERS
+             ================================================= -->
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:28px;--speed:7s;--delay:-2s;--rotation:15deg;left:18%;top:47%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F6AC.svg"
+        style="--size:28px;--speed:9s;--delay:-4s;--rotation:-25deg;left:29%;top:61%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F33F.svg"
+        style="--size:30px;--speed:8s;--delay:-6s;--rotation:20deg;left:42%;top:64%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F3B1.svg"
+        style="--size:30px;--speed:10s;--delay:-3s;--rotation:-15deg;left:54%;top:61%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/1F351.svg"
+        style="--size:30px;--speed:9s;--delay:-5s;--rotation:18deg;left:67%;top:64%;">
+
+        <img class="doodle"
+        src="https://cdn.jsdelivr.net/gh/hfg-gmuend/openmoji/black/svg/2B50.svg"
+        style="--size:28px;--speed:8s;--delay:-1s;--rotation:-20deg;left:78%;top:61%;">
+
+    </div>
+
+
+    <!-- =====================================================
+         CENTER
+         ===================================================== -->
+
+    <div class="content">
+
+        <h1 class="title">
+            MAMA BORO SEGO
+        </h1>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="footer">
+
+        <div class="location">
+
+            <div class="pin"></div>
+
+            <span>- BARASAT</span>
+
+        </div>
+
+        <div class="author">
+            By - sayanK
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
